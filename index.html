@@ -215,49 +215,18 @@
             --color-dim: #71717a;
         }
 
-        /* Scroll animations (DS15 fadeSlideIn and out) */
-        @keyframes fadeSlideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-                filter: blur(8px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-            }
-        }
-
-        @keyframes fadeSlideOut {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-30px);
-                filter: blur(8px);
-            }
-        }
-
+        /* Scroll animations (Optimized Transitions) */
         .animate-on-scroll {
             opacity: 0;
-            animation-duration: 0.8s;
-            animation-fill-mode: both;
-            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform, filter;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
         .animate-on-scroll.in-view {
-            animation-name: fadeSlideIn;
-        }
-
-        .animate-on-scroll.out-view {
-            animation-name: fadeSlideOut;
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         /* Section structure */
@@ -682,11 +651,13 @@
             padding-bottom: 1.25rem;
         }
 
-        /* Section BGs */
+        /* Section BGs (Smooth fade from header video to solid black) */
         .bg-sections {
             position: relative;
-            background: #000;
+            background: linear-gradient(to bottom, transparent 0%, #000000 12vh, #000000 100%);
             z-index: 15;
+            margin-top: -12vh;
+            padding-top: 12vh;
         }
 
         @media (max-width: 720px) {
@@ -738,19 +709,16 @@
                         ao vivo | Sábado e Domingo | 12h intensivas</span>
                 </div>
 
-                <!-- Main Heading: Aligned explicitly to the left with Line 1 and Line 2 broken -->
+                <!-- Main Heading -->
                 <h1
-                    class="hero-el text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter font-manrope text-white leading-[1.1] mb-6 text-left w-full">
-                    Aprenda a vender mais, ter mais clientes<br>
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#ef233c] to-red-500 font-bold">e
-                        mais constância de faturamento todos os meses</span>
+                    class="hero-el text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter font-manrope text-white leading-[1.1] mb-6 text-left w-full max-w-[800px]">
+                    Aprenda a vender mais,<br>
+                    ter mais clientes<br>
+                    <span
+                        class="bg-clip-text text-transparent bg-gradient-to-r from-[#ef233c] to-red-500 font-bold block pt-1">
+                        e mais constância de faturamento todos os meses
+                    </span>
                 </h1>
-
-                <!-- Optional interpretation of the "ter mais" on a new line -->
-                <!-- The prompt specifically demands:
-                Linha 1: "Aprenda a vender mais, ter mais clientes" 
-                Linha 2: "e mais constância de faturamento todos os meses"
-                -->
 
                 <p
                     class="hero-el text-lg lg:text-xl font-medium text-zinc-400 font-manrope leading-relaxed border-l-[3px] border-[#ef233c] pl-5 mb-10 text-left w-full">
@@ -822,19 +790,27 @@
 
             </div>
 
-            <!-- CTA BLOCK: Centralized and clear contrast -->
-            <div class="hero-el cta-block mt-6">
-                <p class="text-3xl lg:text-4xl font-bold text-white font-manrope mb-1 tracking-tight">R$ 44 <span
-                        class="text-base font-normal text-zinc-400">à vista</span></p>
-                <p class="text-sm text-zinc-500 font-manrope mb-6">(ou em até 5x de 9,99)</p>
+            <!-- CTA BLOCK: Elegant Dark Card (Ref Image 1 & 2) -->
+            <div
+                class="hero-el bracket-card mt-6 w-full lg:w-[100%] max-w-[800px] flex flex-col items-center justify-center text-center bg-[rgba(5,5,5,0.95)] border border-zinc-900 border-dashed py-12 px-6 shadow-[0_0_40px_rgba(0,0,0,0.8)] mx-auto relative overflow-hidden">
+                <div class="bc tl"></div>
+                <div class="bc tr"></div>
+                <div class="bc bl"></div>
+                <div class="bc br"></div>
 
-                <a href="#" class="shiny-cta group">
-                    <span
-                        class="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white font-manrope tracking-wide uppercase transition-all group-hover:tracking-widest"
-                        style="text-shadow: 0 0 20px rgba(239, 35, 60, 0.5);">
-                        <i class="fa-solid fa-bolt text-[#ef233c]"></i>
-                        QUERO GARANTIR MINHA VAGA
-                    </span>
+                <!-- Subtle top glow -->
+                <div
+                    class="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[#ef233c]/40 to-transparent">
+                </div>
+
+                <p
+                    class="text-3xl lg:text-5xl font-bold text-white font-manrope mb-2 tracking-tight flex items-baseline justify-center gap-2 relative z-10">
+                    R$ 44 <span class="text-lg font-normal text-zinc-400">à vista</span>
+                </p>
+                <p class="text-sm text-zinc-500 font-manrope mb-8 relative z-10">(ou em até 5x de 9,99)</p>
+
+                <a href="#cta-final" class="shiny-cta2 lg w-full max-w-[340px] relative z-10">
+                    <i class="fa-solid fa-bolt text-[#ef233c] mr-2"></i> QUERO MINHA VAGA
                 </a>
             </div>
 
@@ -1408,7 +1384,8 @@
             // Define o tamanho exato da página inteira para o cálculo do Parallax e do tempo do vídeo
             var scrollDuration = document.body.scrollHeight + "px";
 
-            // Movimento Espacial no Eixo Y (suaviza a profundidade)
+            // Movimento Espacial no Eixo Y desativado para evitar o "corte" de borda no rodapé (bug da header/footer)
+            /*
             var yTween = gsap.to("#video-wrapper", { y: "-20vh", ease: "none" });
             new ScrollMagic.Scene({
                 triggerElement: "body",
@@ -1417,6 +1394,7 @@
             })
                 .setTween(yTween)
                 .addTo(controller);
+            */
 
             // Sincroniza o tempo do vídeo com o Scroll da mouse (Scrubbing progressivo real)
             var video = document.getElementById("bg-video");
@@ -1425,19 +1403,23 @@
             video.pause();
 
             function initVideoScrub() {
-                // Ao rolar, altera o tempo atual do vídeo para frente e para trás
                 var duration = video.duration || 10;
-                var videoTween = gsap.to(video, {
-                    currentTime: duration,
-                    ease: "none" // easing NONE é fundamental para o scrub seguir o mouse perfeitamente 1:1 sem engasgar
-                });
 
                 new ScrollMagic.Scene({
                     triggerElement: "body",
                     triggerHook: 0,
-                    duration: scrollDuration // Atrela exatamente do topo ao fim do scroll da página
+                    duration: scrollDuration
                 })
-                    .setTween(videoTween)
+                    .on("progress", function (e) {
+                        var targetTime = e.progress * duration;
+                        // Use GSAP natively to smoothly scrub up to the target without a permanent RAF loop freezing the CPU
+                        gsap.to(video, {
+                            currentTime: targetTime,
+                            duration: 0.5,
+                            ease: "power2.out",
+                            overwrite: true
+                        });
+                    })
                     .addTo(controller);
             }
 
@@ -1456,12 +1438,9 @@
             var observer = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                        entry.target.classList.remove('out-view');
                         entry.target.classList.add('in-view');
-                    } else {
-                        // Fade out linearly mimicking DS15 structure but bidirectionally
-                        entry.target.classList.remove('in-view');
-                        entry.target.classList.add('out-view');
+                        // Apenas animar na entrada (one-way) para evitar stuttering de layout no scroll
+                        observer.unobserve(entry.target);
                     }
                 });
             }, {
