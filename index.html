@@ -49,7 +49,9 @@
 
         .fade-up {
             opacity: 0;
+            filter: blur(10px);
             transform: translateY(40px);
+            will-change: opacity, filter, transform;
         }
 
         @property --gradient-angle {
@@ -127,12 +129,13 @@
         /* Video parallax scrub wrapper setup */
         .parallax-container {
             position: fixed;
-            top: 0;
+            top: -25%;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 150%;
             z-index: 0;
             pointer-events: none;
+            will-change: transform;
         }
 
         .parallax-container video {
@@ -162,6 +165,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
         .main-block {
@@ -216,8 +220,8 @@
 
     <!-- Spatial Parallax Container -->
     <div class="parallax-container" id="video-wrapper">
-        <!-- Notice autoplay, loop are REMOVED so we can scrub it -->
-        <video muted playsinline preload="auto" id="bg-video">
+        <!-- Autoplay is back so the video flows naturally -> Fixed freezing issue -->
+        <video autoplay loop muted playsinline preload="auto" id="bg-video">
             <source src="assets/raw.files/video4.mp4" type="video/mp4">
         </video>
     </div>
@@ -243,9 +247,9 @@
                 <!-- Main Heading With Line Break & Left Align -->
                 <h1
                     class="hero-el fade-up text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter font-manrope text-white leading-[1.1] mb-6 text-left w-full">
-                    Aprenda a vender mais, ter mais clientes <br class="hidden sm:block">
+                    Aprenda a vender mais, ter mais clientes <br>
                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#ef233c] to-red-500 font-bold">e
-                        mais constância de faturamento</span> todos os meses
+                        mais constância de faturamento todos os meses</span>
                 </h1>
 
                 <p
@@ -255,17 +259,17 @@
 
                 <!-- Date Box Compact -->
                 <div
-                    class="hero-el fade-up bg-black border border-zinc-800 rounded-none px-5 py-4 shadow-xl flex gap-4 items-center w-full sm:w-max group hover:border-zinc-700 transition-all relative mb-10">
+                    class="hero-el fade-up bg-black border border-zinc-800 rounded-none px-4 py-3 shadow-xl flex gap-3 items-center w-full sm:w-max group hover:border-zinc-700 transition-all relative mb-10">
                     <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#ef233c]"></div>
                     <div
-                        class="w-10 h-10 bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ef233c] shrink-0 rounded-none">
-                        <i class="fa-regular fa-calendar-check text-lg"></i>
+                        class="w-8 h-8 bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ef233c] shrink-0 rounded-none">
+                        <i class="fa-regular fa-calendar-check text-sm"></i>
                     </div>
                     <div>
                         <p class="text-[9px] text-zinc-500 font-mono uppercase tracking-widest font-bold mb-0.5">Data do
                             Evento</p>
                         <p
-                            class="text-base font-bold font-manrope text-white group-hover:text-[#ef233c] transition-colors">
+                            class="text-sm font-bold font-manrope text-white group-hover:text-[#ef233c] transition-colors">
                             7 e 8 de março</p>
                     </div>
                 </div>
@@ -361,55 +365,85 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
-            // 1. GSAP Entrance Animations
-            gsap.to(".hero-el", {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                stagger: 0.15,
-                delay: 0.1
+            var controller = new ScrollMagic.Controller();
+
+            // 1. Initial Load Entry (Animações ao carregar a página)
+            const initialElements = [];
+            const scrollElements = [];
+
+            document.querySelectorAll(".hero-el").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    initialElements.push(el);
+                } else {
+                    scrollElements.push(el);
+                }
             });
 
-            // 2. Video Parallax Scrubbing using GSAP & ScrollMagic
-            var controller = new ScrollMagic.Controller();
-            var video = document.getElementById("bg-video");
-
-            // We create a dummy object to hold the tween's 'time' value
-            var videoTimeObj = { time: 0 };
-
-            // Function to initialize the ScrollMagic scene once the video has loaded its metadata
-            function initVideoScrub() {
-                var duration = video.duration || 5;
-
-                // Tween the 'time' property of videoTimeObj from 0 to video.duration
-                var scrubTween = gsap.to(videoTimeObj, {
-                    time: duration,
-                    ease: "none",
-                    onUpdate: () => {
-                        // Only update if video has loaded data to prevent errors
-                        if (video.readyState >= 1) {
-                            video.currentTime = videoTimeObj.time;
-                        }
-                    }
+            // Faz aparecer os elementos que já estão na tela no ínicio (rápido e suave)
+            if (initialElements.length > 0) {
+                gsap.to(initialElements, {
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.2,
+                    ease: "power3.out",
+                    stagger: 0.15,
+                    delay: 0.1
                 });
+            }
 
-                // Bind the tween to the entire scrollable height
+            // 2. Animação Scroll-Sync: Fade In/Out e Blur In/Out
+            document.querySelectorAll(".hero-el").forEach((el) => {
+
+                // Animação Entrando pela Parte de Baixo da Tela (Fica nítido)
+                var enterTween = gsap.fromTo(el,
+                    { opacity: 0, filter: "blur(10px)", y: 40 },
+                    { opacity: 1, filter: "blur(0px)", y: 0, ease: "power2.out" }
+                );
+
                 new ScrollMagic.Scene({
-                    triggerElement: "body",
-                    triggerHook: 0,
-                    duration: "250%" // The amount of scroll distance required to scrub the whole video
+                    triggerElement: el,
+                    triggerHook: 0.9,     // Dispara quando o elemento atinge os 90%
+                    duration: "25%",      // Sincroniza a animação com 25% da rolagem
+                    reverse: true
                 })
-                    .setTween(scrubTween)
+                    .setTween(enterTween)
                     .addTo(controller);
-            }
 
-            // Check if video is already ready or wait for metadata
-            if (video.readyState >= 1) {
-                initVideoScrub();
-            } else {
-                video.addEventListener('loadedmetadata', initVideoScrub);
-            }
+
+                // Animação Saindo pela Parte de Cima da Tela (Fica borrado)
+                var exitTween = gsap.fromTo(el,
+                    { opacity: 1, filter: "blur(0px)", y: 0 },
+                    { opacity: 0, filter: "blur(10px)", y: -40, ease: "power2.in" }
+                );
+
+                new ScrollMagic.Scene({
+                    triggerElement: el,
+                    triggerHook: 0.15,    // Dispara perto do topo
+                    duration: "20%",      // Sincroniza ao sair 
+                    reverse: true
+                })
+                    .setTween(exitTween)
+                    .addTo(controller);
+            });
+
+            // 3. Parallax Espacial Constante do Vídeo
+            // Resolvendo o 'travamento' de vez retirando o Scrubing do tempo do vídeo (ele está autoplay) 
+            // e apenas aplicando uma atenuação e duração global de Translate Y (Scroll Parallax)
+            // GSAP ScrollTrigger seria melhor aqui, mas dentro do ScrollMagic criamos a inércia via Tween + Duration grande.
+            var yTween = gsap.to("#video-wrapper", {
+                y: "40%",
+                ease: "none"
+            });
+
+            new ScrollMagic.Scene({
+                triggerElement: "body",
+                triggerHook: 0,
+                duration: "250%"
+            })
+                .setTween(yTween)
+                .addTo(controller);
+
         });
     </script>
 </body>
