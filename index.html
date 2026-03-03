@@ -135,12 +135,11 @@
            ============================================= */
         .parallax-container {
             position: fixed;
-            top: -25%;
-            /* Expand start area for Y parallax */
+            top: 0;
             left: 0;
             width: 100%;
-            height: 150%;
-            /* Taller than viewport to allow pulling */
+            height: 120vh;
+            /* slightly taller for y-parallax */
             z-index: 0;
             pointer-events: none;
             will-change: transform;
@@ -954,23 +953,58 @@
                 Imagine saber exatamente:</h2>
             <div
                 style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:2.5rem;">
-                <div class="ds-card" style="text-align:center;">
-                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">📍</div>
-                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde seu cliente <strong>entra</strong>
-                    </p>
+                <div
+                    class="ds-card flex flex-col items-center text-center justify-center transition-colors duration-300 hover:border-[#ef233c]/50 group">
+                    <div class="mb-4 text-[#ef233c] group-hover:-translate-y-1 transition-transform duration-300">
+                        <!-- 📍 Pin -->
+                        <svg fill="none" height="28" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="28">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde seu cliente <strong
+                            class="text-white">entra</strong></p>
                 </div>
-                <div class="ds-card" style="text-align:center;">
-                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">🤝</div>
-                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde ele <strong>cria confiança</strong>
-                    </p>
+                <div
+                    class="ds-card flex flex-col items-center text-center justify-center transition-colors duration-300 hover:border-[#ef233c]/50 group">
+                    <div class="mb-4 text-[#ef233c] group-hover:-translate-y-1 transition-transform duration-300">
+                        <!-- 🤝 Heart/Trust -->
+                        <svg fill="none" height="28" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="28">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde ele <strong class="text-white">cria
+                            confiança</strong></p>
                 </div>
-                <div class="ds-card" style="text-align:center;">
-                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">🚧</div>
-                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde ele <strong>trava</strong></p>
+                <div
+                    class="ds-card flex flex-col items-center text-center justify-center transition-colors duration-300 hover:border-[#ef233c]/50 group">
+                    <div class="mb-4 text-[#ef233c] group-hover:-translate-y-1 transition-transform duration-300">
+                        <!-- 🚧 Alert/Block -->
+                        <svg fill="none" height="28" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="28">
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                            <path d="M12 9v4"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+                    </div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde ele <strong
+                            class="text-white">trava</strong></p>
                 </div>
-                <div class="ds-card" style="text-align:center;">
-                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">✅</div>
-                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">O que faz ele <strong>decidir</strong></p>
+                <div
+                    class="ds-card flex flex-col items-center text-center justify-center transition-colors duration-300 hover:border-[#ef233c]/50 group">
+                    <div class="mb-4 text-[#ef233c] group-hover:-translate-y-1 transition-transform duration-300">
+                        <!-- ✅ Check -->
+                        <svg fill="none" height="28" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="28">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">O que faz ele <strong
+                            class="text-white">decidir</strong></p>
                 </div>
             </div>
             <div style="border-left:2px solid var(--color-red);padding-left:1.5rem;margin-bottom:2rem;">
@@ -1375,7 +1409,7 @@
             var scrollDuration = document.body.scrollHeight + "px";
 
             // Movimento Espacial no Eixo Y (suaviza a profundidade)
-            var yTween = gsap.to("#video-wrapper", { y: "40%", ease: "none" });
+            var yTween = gsap.to("#video-wrapper", { y: "-20vh", ease: "none" });
             new ScrollMagic.Scene({
                 triggerElement: "body",
                 triggerHook: 0,
