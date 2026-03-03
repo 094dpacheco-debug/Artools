@@ -1,138 +1,146 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-br" class="scroll-smooth">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evento ao vivo | Sábado e Domingo | 12 horas intensivas</title>
+    <title>Evento ao Vivo | 7 e 8 de Março | Aprenda a Vender Mais</title>
     <meta name="description"
-        content="Aprenda a vender mais, ter mais clientes e mais constância de faturamento todos os meses.">
+        content="Evento ao vivo de 12 horas intensivas nos dias 7 e 8 de março. Aprenda a vender mais, ter mais clientes e mais constância de faturamento todos os meses.">
 
-    <!-- Normalize.css -->
+    <!-- Normalize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-
-    <!-- Fonts -->
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
                         manrope: ['Manrope', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
         }
     </script>
 
-    <!-- Custom Styles derived from design-system 15 -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-            margin: 0;
+        /* =============================================
+           CORE STYLES: DS15 Dark + DS10 Motion
+           ============================================= */
+        * {
+            box-sizing: border-box;
         }
 
-        .fade-up {
+        body {
+            background: #000000;
+            color: #ffffff;
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Initial state for animated elements */
+        .hero-el {
             opacity: 0;
             filter: blur(10px);
             transform: translateY(40px);
             will-change: opacity, filter, transform;
         }
 
-        @property --gradient-angle {
-            syntax: "<angle>";
-            initial-value: 0deg;
-            inherits: false;
+        /* Pulse dot */
+        .pulse-dot {
+            animation: pulseDot 2s infinite;
         }
 
-        @property --gradient-angle-offset {
-            syntax: "<angle>";
-            initial-value: 0deg;
-            inherits: false;
-        }
+        @keyframes pulseDot {
 
-        @property --gradient-percent {
-            syntax: "<percentage>";
-            initial-value: 20%;
-            inherits: false;
-        }
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
 
-        @property --gradient-shine {
-            syntax: "<color>";
-            initial-value: #dc2626;
-            inherits: false;
-        }
-
-        /* Square shiny-cta */
-        .shiny-cta {
-            --gradient-angle: 0deg;
-            --gradient-angle-offset: 0deg;
-            --gradient-percent: 20%;
-            --gradient-shine: #dc2626;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0;
-            padding: 1.25rem 2rem;
-            font-size: 1rem;
-            line-height: 1.2;
-            font-weight: 700;
-            color: #ffffff;
-            background: linear-gradient(#000000, #000000) padding-box,
-                conic-gradient(from calc(var(--gradient-angle) - var(--gradient-angle-offset)), transparent 0%, #dc2626 5%, var(--gradient-shine) 15%, #dc2626 30%, transparent 40%, transparent 100%) border-box;
-            border: 2px solid transparent;
-            box-shadow: inset 0 0 0 1px #1a1a1a, 0 10px 20px rgba(220, 38, 38, 0.1);
-            outline: none;
-            transition: --gradient-angle-offset 800ms cubic-bezier(0.25, 1, 0.5, 1), --gradient-percent 800ms cubic-bezier(0.25, 1, 0.5, 1), --gradient-shine 800ms cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s, transform 0.2s;
-            cursor: pointer;
-            isolation: isolate;
-            z-index: 0;
-            animation: border-spin 2.5s linear infinite;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        @keyframes border-spin {
-            to {
-                --gradient-angle: 360deg;
+            50% {
+                opacity: 0.4;
+                transform: scale(1.8);
             }
         }
 
-        .shiny-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: inset 0 0 0 1px #2a2a2a, 0 15px 30px rgba(220, 38, 38, 0.25);
+        /* CTA Button (DS15 Shiny) */
+        .shiny-cta {
+            position: relative;
+            z-index: 1;
+            padding: 3px;
+            overflow: hidden;
+            display: inline-flex;
+            border-radius: 0;
+            margin-top: 10px;
         }
 
-        .shiny-cta:active {
-            transform: translateY(1px);
+        .shiny-cta::before {
+            content: '';
+            position: absolute;
+            inset: -200%;
+            background: conic-gradient(from 0deg, transparent 0 340deg, #ef233c 360deg);
+            animation: spinGlow 3s linear infinite;
+            z-index: -2;
         }
 
-        /* Video parallax scrub wrapper setup */
+        .shiny-cta::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: linear-gradient(#000000, #000000);
+            z-index: -1;
+            border-radius: 0;
+        }
+
+        @keyframes spinGlow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Check icon */
+        .check-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: rgba(239, 35, 60, 0.1);
+            border: 1px solid rgba(239, 35, 60, 0.3);
+            border-radius: 0;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        /* =============================================
+           VIDEO PARALLAX CONTAINER
+           ============================================= */
         .parallax-container {
             position: fixed;
             top: -25%;
+            /* Expand start area for Y parallax */
             left: 0;
             width: 100%;
             height: 150%;
+            /* Taller than viewport to allow pulling */
             z-index: 0;
             pointer-events: none;
             will-change: transform;
@@ -153,6 +161,9 @@
             pointer-events: none;
         }
 
+        /* =============================================
+           CONTENT LAYOUT
+           ============================================= */
         .content-wrapper {
             position: relative;
             z-index: 10;
@@ -164,42 +175,12 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
         }
 
         .main-block {
             width: 100%;
-            max-width: 800px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .cta-block {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Check icon purely square, based on DS 15 */
-        .check-icon {
-            color: #ef233c;
-            flex-shrink: 0;
-            background: rgba(239, 35, 60, 0.1);
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0;
-            /* Square borders */
-            border: 1px solid rgba(239, 35, 60, 0.3);
-            box-shadow: inset 0 0 8px rgba(239, 35, 60, 0.1);
-        }
-
-        .pulse-dot {
-            box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+            text-align: left;
         }
 
         .page-wrapper {
@@ -207,11 +188,22 @@
             z-index: 5;
         }
 
+        /* Scroll buffer for parallax */
         .scroll-buffer {
-            height: 250vh;
+            height: 60vh;
+        }
+
+        /* CTA Block container */
+        .cta-block {
             width: 100%;
-            position: relative;
-            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border-radius: 0;
         }
     </style>
 </head>
@@ -220,8 +212,8 @@
 
     <!-- Spatial Parallax Container -->
     <div class="parallax-container" id="video-wrapper">
-        <!-- Autoplay is back so the video flows naturally -> Fixed freezing issue -->
-        <video autoplay loop muted playsinline preload="auto" id="bg-video">
+        <!-- Vídeo atrelado ao scroll, sem autoplay -->
+        <video muted playsinline preload="auto" id="bg-video">
             <source src="assets/raw.files/video4.mp4" type="video/mp4">
         </video>
     </div>
@@ -233,169 +225,157 @@
         <div class="content-wrapper px-6">
 
             <!-- MAIN BLOCK: Left Aligned Content -->
-            <div class="main-block mb-14">
+            <div class="main-block mb-10">
 
                 <!-- Event badge -->
                 <div
-                    class="hero-el fade-up inline-flex w-max flex-wrap items-center gap-2.5 px-4 py-2 rounded-none bg-zinc-900/40 backdrop-blur-md border border-zinc-800 mb-8 hover:border-zinc-700 transition-colors">
+                    class="hero-el inline-flex w-max flex-wrap items-center gap-2.5 px-4 py-2 rounded-none bg-zinc-900/40 backdrop-blur-md border border-zinc-800 mb-8 hover:border-zinc-700 transition-colors">
                     <span class="w-1.5 h-1.5 rounded-none bg-red-600 animate-pulse pulse-dot shrink-0"></span>
                     <span
                         class="text-[10px] md:text-xs font-semibold tracking-wider text-zinc-300 font-mono uppercase">Evento
                         ao vivo | Sábado e Domingo | 12h intensivas</span>
                 </div>
 
-                <!-- Main Heading With Line Break & Left Align -->
+                <!-- Main Heading: Aligned explicitly to the left with Line 1 and Line 2 broken -->
                 <h1
-                    class="hero-el fade-up text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter font-manrope text-white leading-[1.1] mb-6 text-left w-full">
-                    Aprenda a vender mais, ter mais clientes <br>
+                    class="hero-el text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tighter font-manrope text-white leading-[1.1] mb-6 text-left w-full">
+                    Aprenda a vender mais, ter mais clientes<br>
                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#ef233c] to-red-500 font-bold">e
                         mais constância de faturamento todos os meses</span>
                 </h1>
 
+                <!-- Optional interpretation of the "ter mais" on a new line -->
+                <!-- The prompt specifically demands:
+                Linha 1: "Aprenda a vender mais, ter mais clientes" 
+                Linha 2: "e mais constância de faturamento todos os meses"
+                -->
+
                 <p
-                    class="hero-el fade-up text-lg lg:text-xl font-medium text-zinc-400 font-manrope leading-relaxed border-l-[3px] border-[#ef233c] pl-5 mb-12 text-left w-full">
+                    class="hero-el text-lg lg:text-xl font-medium text-zinc-400 font-manrope leading-relaxed border-l-[3px] border-[#ef233c] pl-5 mb-10 text-left w-full">
                     Sem ter ferramenta milagrosa e sem sacrificar o seu tempo.
                 </p>
 
-                <!-- Date Box Compact -->
-                <div
-                    class="hero-el fade-up bg-black border border-zinc-800 rounded-none px-4 py-3 shadow-xl flex gap-3 items-center w-full sm:w-max group hover:border-zinc-700 transition-all relative mb-10">
-                    <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#ef233c]"></div>
-                    <div
-                        class="w-8 h-8 bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ef233c] shrink-0 rounded-none">
-                        <i class="fa-regular fa-calendar-check text-sm"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-zinc-500 font-mono uppercase tracking-widest font-bold mb-0.5">Data do
-                            Evento</p>
+                <!-- Flex Container for Checkpoints & Date Box (Proporcional e ao Lado) -->
+                <div class="flex flex-col md:flex-row gap-0 lg:gap-16 items-start w-full">
+
+                    <!-- Checkpoints (Left Side) -->
+                    <div class="hero-el space-y-5 flex-1 w-full">
+                        <h3
+                            class="text-lg font-semibold font-manrope text-white border-b border-zinc-800 border-dashed pb-2 inline-block">
+                            Em apenas dois dias você vai:</h3>
+
+                        <ul class="space-y-4">
+                            <li class="flex items-start group">
+                                <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
+                                        class="fa-solid fa-check text-[#ef233c] text-xs"></i></span>
+                                <span
+                                    class="text-base font-manrope text-zinc-300 group-hover:text-white transition-colors leading-relaxed">Mapear
+                                    sua jornada de compra completa</span>
+                            </li>
+                            <li class="flex items-start group">
+                                <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
+                                        class="fa-solid fa-check text-[#ef233c] text-xs"></i></span>
+                                <span
+                                    class="text-base font-manrope text-zinc-300 group-hover:text-white transition-colors leading-relaxed">Identificar
+                                    o principal gargalo que trava suas vendas</span>
+                            </li>
+                            <li class="flex items-start group">
+                                <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
+                                        class="fa-solid fa-check text-[#ef233c] text-xs"></i></span>
+                                <span
+                                    class="text-base font-manrope text-zinc-300 group-hover:text-white transition-colors leading-relaxed">Sair
+                                    com um plano estruturado de 30 dias definido para vender mais</span>
+                            </li>
+                        </ul>
+
+                        <!-- Clareza line -->
                         <p
-                            class="text-sm font-bold font-manrope text-white group-hover:text-[#ef233c] transition-colors">
-                            7 e 8 de março</p>
+                            class="text-sm text-zinc-500 font-manrope mt-8 italic border-l-2 border-zinc-800 pl-4 w-full text-left">
+                            Apenas clareza estrutural aplicada à operação que você já tem e que vai garantir
+                            estabilidade no seu faturamento.
+                        </p>
                     </div>
+
+                    <!-- Date Box Proportional (Right Side - Ao Lado da Checkbox) -->
+                    <div class="hero-el flex-shrink-0 mt-8 md:mt-2">
+                        <div
+                            class="bg-[#000000] border border-zinc-800 rounded-none px-6 py-5 shadow-xl flex gap-4 items-center group hover:border-zinc-700 transition-all relative">
+                            <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#ef233c]"></div>
+                            <div
+                                class="w-10 h-10 bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ef233c] shrink-0 rounded-none">
+                                <i class="fa-regular fa-calendar-check text-lg"></i>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest font-bold mb-0.5">
+                                    Data do Evento</p>
+                                <p
+                                    class="text-base font-bold font-manrope text-white group-hover:text-[#ef233c] transition-colors">
+                                    7 e 8 de março</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Checkpoints -->
-                <div class="hero-el fade-up space-y-5 w-full">
-                    <h3
-                        class="text-lg font-semibold font-manrope text-white border-b border-zinc-800 border-dashed pb-2 inline-block">
-                        Em apenas dois dias você vai:</h3>
-
-                    <ul class="space-y-4">
-                        <li class="flex items-start group">
-                            <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
-                                    class="fa-solid fa-check text-[10px]"></i></span>
-                            <span
-                                class="text-sm md:text-base text-zinc-300 font-normal leading-relaxed ml-4 group-hover:text-white transition-colors">Mapear
-                                sua jornada de compra completa</span>
-                        </li>
-                        <li class="flex items-start group">
-                            <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
-                                    class="fa-solid fa-check text-[10px]"></i></span>
-                            <span
-                                class="text-sm md:text-base text-zinc-300 font-normal leading-relaxed ml-4 group-hover:text-white transition-colors">Identificar
-                                o principal gargalo que trava suas vendas</span>
-                        </li>
-                        <li class="flex items-start group">
-                            <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
-                                    class="fa-solid fa-check text-[10px]"></i></span>
-                            <span
-                                class="text-sm md:text-base text-zinc-300 font-normal leading-relaxed ml-4 group-hover:text-white transition-colors">Sair
-                                com um plano estruturado de 30 dias definido para vender mais</span>
-                        </li>
-                        <li class="flex items-start group">
-                            <span class="check-icon transition-transform group-hover:scale-105 mt-0.5"><i
-                                    class="fa-solid fa-check text-[10px]"></i></span>
-                            <span
-                                class="text-sm md:text-base text-zinc-300 font-normal leading-relaxed ml-4 group-hover:text-white transition-colors">Apenas
-                                clareza estrutural aplicada à operação você já tem e que vai garantir estabilidade no
-                                seu faturamento</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-            <!-- BOTTOM BLOCK: CTA Centered -->
-            <div
-                class="cta-block hero-el fade-up w-full flex flex-col border border-zinc-800 bg-black p-8 relative shadow-2xl">
-                <!-- Edge red markers -->
-                <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#ef233c]"></div>
-                <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#ef233c]"></div>
-                <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#ef233c]"></div>
-                <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#ef233c]"></div>
+            <!-- CTA BLOCK: Centralized and clear contrast -->
+            <div class="hero-el cta-block mt-6">
+                <p class="text-3xl lg:text-4xl font-bold text-white font-manrope mb-1 tracking-tight">R$ 44 <span
+                        class="text-base font-normal text-zinc-400">à vista</span></p>
+                <p class="text-sm text-zinc-500 font-manrope mb-6">(ou em até 5x de 9,99)</p>
 
-                <div class="flex items-center justify-between border-b border-zinc-800 border-dashed pb-4 mb-6">
-                    <span class="font-mono text-[10px] text-[#ef233c] tracking-widest uppercase font-bold">[ Passaporte
-                        VIP ]</span>
-                    <div class="flex gap-1.5">
-                        <div class="w-1.5 h-1.5 bg-[#ef233c] animate-pulse rounded-none"></div>
-                        <div class="w-1.5 h-1.5 bg-zinc-800 rounded-none"></div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col items-center justify-center mb-6">
-                    <div class="flex items-start">
-                        <span class="text-zinc-500 font-bold text-xl mt-2 mr-2">R$</span>
-                        <span
-                            class="text-[5rem] leading-[0.85] font-medium font-manrope tracking-tighter text-white">44</span>
-                    </div>
-                    <p class="text-zinc-400 font-medium text-base mt-3 mb-1">à vista</p>
-                    <p class="text-zinc-500 font-mono text-[10px] uppercase">(ou em até 5x de R$ 9,99)</p>
-                </div>
-
-                <div class="w-full flex justify-center">
-                    <a href="#checkout" class="shiny-cta max-w-[400px]">
-                        <span>QUERO GARANTIR MINHA VAGA</span>
-                    </a>
-                </div>
+                <a href="#" class="shiny-cta group">
+                    <span
+                        class="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white font-manrope tracking-wide uppercase transition-all group-hover:tracking-widest"
+                        style="text-shadow: 0 0 20px rgba(239, 35, 60, 0.5);">
+                        <i class="fa-solid fa-bolt text-[#ef233c]"></i>
+                        QUERO GARANTIR MINHA VAGA
+                    </span>
+                </a>
             </div>
 
         </div>
 
-        <!-- Buffer Section for scroll check map -->
+        <!-- Buffer Section for scroll -->
         <div class="scroll-buffer"></div>
 
     </div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <!-- ScrollMagic and its plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", function () {
 
             var controller = new ScrollMagic.Controller();
 
-            // 1. Initial Load Entry (Animações ao carregar a página)
-            const initialElements = [];
-            const scrollElements = [];
+            // =============================================
+            // 1. ENTRANCE ANIMATIONS (Fade In + Blur In)
+            // =============================================
+            var heroElements = document.querySelectorAll(".hero-el");
 
-            document.querySelectorAll(".hero-el").forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight) {
-                    initialElements.push(el);
-                } else {
-                    scrollElements.push(el);
-                }
+            // Initial Stagger for all elements, removing bounding box bug
+            // Fades from 0 to 1, Blur clears from 10px to 0 
+            gsap.to(heroElements, {
+                y: 0,
+                opacity: 1,           // Fade In 0 -> 100%
+                filter: "blur(0px)",   // Blur In 10px -> 0px
+                duration: 1.2,
+                ease: "power3.out",
+                stagger: 0.1,
+                delay: 0.1
             });
 
-            // Faz aparecer os elementos que já estão na tela no ínicio (rápido e suave)
-            if (initialElements.length > 0) {
-                gsap.to(initialElements, {
-                    y: 0,
-                    opacity: 1,
-                    filter: "blur(0px)",
-                    duration: 1.2,
-                    ease: "power3.out",
-                    stagger: 0.15,
-                    delay: 0.1
-                });
-            }
+            // =============================================
+            // 2. SCROLL-SYNCED ANIMATIONS (Fade Out / Blur Out)
+            // =============================================
+            heroElements.forEach(function (el) {
 
-            // 2. Animação Scroll-Sync: Fade In/Out e Blur In/Out
-            document.querySelectorAll(".hero-el").forEach((el) => {
-
-                // Animação Entrando pela Parte de Baixo da Tela (Fica nítido)
+                // ENTER scene: fading and blur clearing from bottom
                 var enterTween = gsap.fromTo(el,
                     { opacity: 0, filter: "blur(10px)", y: 40 },
                     { opacity: 1, filter: "blur(0px)", y: 0, ease: "power2.out" }
@@ -403,15 +383,15 @@
 
                 new ScrollMagic.Scene({
                     triggerElement: el,
-                    triggerHook: 0.9,     // Dispara quando o elemento atinge os 90%
-                    duration: "25%",      // Sincroniza a animação com 25% da rolagem
+                    triggerHook: 0.9,
+                    duration: "25%",
                     reverse: true
                 })
                     .setTween(enterTween)
                     .addTo(controller);
 
-
-                // Animação Saindo pela Parte de Cima da Tela (Fica borrado)
+                // EXIT scene: fading out and blurring out towards top
+                // Fades Opacity to 0, blurs back to 10px smoothly
                 var exitTween = gsap.fromTo(el,
                     { opacity: 1, filter: "blur(0px)", y: 0 },
                     { opacity: 0, filter: "blur(10px)", y: -40, ease: "power2.in" }
@@ -419,23 +399,21 @@
 
                 new ScrollMagic.Scene({
                     triggerElement: el,
-                    triggerHook: 0.15,    // Dispara perto do topo
-                    duration: "20%",      // Sincroniza ao sair 
+                    triggerHook: 0.15,
+                    duration: "20%",
                     reverse: true
                 })
                     .setTween(exitTween)
                     .addTo(controller);
             });
 
-            // 3. Parallax Espacial Constante do Vídeo
-            // Resolvendo o 'travamento' de vez retirando o Scrubing do tempo do vídeo (ele está autoplay) 
-            // e apenas aplicando uma atenuação e duração global de Translate Y (Scroll Parallax)
-            // GSAP ScrollTrigger seria melhor aqui, mas dentro do ScrollMagic criamos a inércia via Tween + Duration grande.
-            var yTween = gsap.to("#video-wrapper", {
-                y: "40%",
-                ease: "none"
-            });
+            // =============================================
+            // 3. PARALLAX DO VÍDEO (Scrubbing pelo Scroll + Eixo Y)
+            //    Vídeo avança apenas quando usuário rola a tela
+            // =============================================
 
+            // Movimento Espacial no Eixo Y (suaviza a profundidade)
+            var yTween = gsap.to("#video-wrapper", { y: "40%", ease: "none" });
             new ScrollMagic.Scene({
                 triggerElement: "body",
                 triggerHook: 0,
@@ -443,6 +421,36 @@
             })
                 .setTween(yTween)
                 .addTo(controller);
+
+            // Sincroniza o tempo do vídeo (Scrubbing progressivo) com o Scroll da mouse
+            var video = document.getElementById("bg-video");
+
+            // Pausa imediatamente evitando o rolar sem scroll
+            video.pause();
+
+            function initVideoScrub() {
+                var duration = video.duration || 10; // Fallback garantido
+
+                var videoTween = gsap.to(video, {
+                    currentTime: duration,
+                    ease: "power2.out" // Desacelera suavemente quando para de rolar
+                });
+
+                new ScrollMagic.Scene({
+                    triggerElement: "body",
+                    triggerHook: 0,
+                    duration: "400%" // Quantidade de scroll pro curso do vídeo
+                })
+                    .setTween(videoTween)
+                    .addTo(controller);
+            }
+
+            // Garante que a duração está contada antes de registrar a Scene e engasgar a leitura
+            if (video.readyState >= 1) {
+                initVideoScrub();
+            } else {
+                video.addEventListener("loadedmetadata", initVideoScrub);
+            }
 
         });
     </script>
