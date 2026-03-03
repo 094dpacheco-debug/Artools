@@ -188,11 +188,6 @@
             z-index: 5;
         }
 
-        /* Scroll buffer for parallax */
-        .scroll-buffer {
-            height: 60vh;
-        }
-
         /* CTA Block container */
         .cta-block {
             width: 100%;
@@ -204,6 +199,514 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(12px);
             border-radius: 0;
+        }
+
+        /* =============================================
+           DS15 DESIGN TOKENS — Sections 2-10
+           ============================================= */
+        :root {
+            --color-bg: #000000;
+            --color-surface: rgba(255, 255, 255, 0.04);
+            --color-border: rgba(255, 255, 255, 0.08);
+            --color-border-strong: rgba(255, 255, 255, 0.15);
+            --color-red: #ef233c;
+            --color-red-dark: #dc2626;
+            --color-white: #ffffff;
+            --color-muted: #9ca3af;
+            --color-dim: #71717a;
+        }
+
+        /* Scroll animations (DS15 fadeSlideIn and out) */
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(8px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes fadeSlideOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-30px);
+                filter: blur(8px);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            animation-duration: 0.8s;
+            animation-fill-mode: both;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .animate-on-scroll.in-view {
+            animation-name: fadeSlideIn;
+        }
+
+        .animate-on-scroll.out-view {
+            animation-name: fadeSlideOut;
+        }
+
+        /* Section structure */
+        .ds-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            z-index: 20;
+        }
+
+        .ds-section.wide {
+            max-width: 1080px;
+        }
+
+        /* Section title label */
+        .ds-section-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--color-red);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.25rem;
+        }
+
+        .ds-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--color-red), transparent);
+        }
+
+        .ds-section-title.centered {
+            justify-content: center;
+        }
+
+        .ds-section-title.centered::before {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to left, var(--color-red), transparent);
+        }
+
+        .ds-section-title.centered::after {
+            background: linear-gradient(to right, var(--color-red), transparent);
+        }
+
+        /* Tag / Badge */
+        .ds-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--color-red);
+            border: 1px solid rgba(239, 35, 60, 0.4);
+            border-radius: 0;
+            padding: 0.3rem 0.85rem;
+        }
+
+        /* Bracket card */
+        .bracket-card {
+            position: relative;
+            border: 1px dashed rgba(239, 35, 60, 0.22);
+            padding: 2rem;
+        }
+
+        .bracket-card .bc {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+        }
+
+        .bracket-card .bc.tl {
+            top: -1px;
+            left: -1px;
+            border-top: 2px solid #ef233c;
+            border-left: 2px solid #ef233c;
+        }
+
+        .bracket-card .bc.tr {
+            top: -1px;
+            right: -1px;
+            border-top: 2px solid #ef233c;
+            border-right: 2px solid #ef233c;
+        }
+
+        .bracket-card .bc.bl {
+            bottom: -1px;
+            left: -1px;
+            border-bottom: 2px solid #ef233c;
+            border-left: 2px solid #ef233c;
+        }
+
+        .bracket-card .bc.br {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 2px solid #ef233c;
+            border-right: 2px solid #ef233c;
+        }
+
+        /* Card surface */
+        .ds-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 1.75rem;
+        }
+
+        /* Check list */
+        .check-list2 {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .check-list2 li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.55;
+        }
+
+        .check-list2 li::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-top: 2px;
+            background: rgba(239, 35, 60, 0.12);
+            border: 1px solid rgba(239, 35, 60, 0.45);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef233c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: 11px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* X list */
+        .x-list2 {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .x-list2 li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.55;
+        }
+
+        .x-list2 li::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-top: 2px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+            background-size: 11px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Price box */
+        .price-box {
+            padding: 1.5rem 2rem;
+            background: rgba(239, 35, 60, 0.07);
+            border: 1px solid rgba(239, 35, 60, 0.3);
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--color-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-value {
+            font-family: 'Manrope', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .price-value em {
+            font-style: normal;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--color-muted);
+        }
+
+        .price-install {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Red divider line */
+        .red-line {
+            width: 40px;
+            height: 2px;
+            background: var(--color-red);
+            margin: 1.5rem 0;
+        }
+
+        /* Day card */
+        .day-card2 {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(239, 35, 60, 0.18);
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .day-label2 {
+            font-size: 0.64rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--color-red);
+            margin-bottom: 0.4rem;
+        }
+
+        /* Shiny CTA (full version for sections) */
+        @property --gradient-angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @keyframes border-spin2 {
+            to {
+                --gradient-angle: 360deg;
+            }
+        }
+
+        @keyframes pulse-glow2 {
+
+            0%,
+            100% {
+                box-shadow: 0 0 24px rgba(239, 35, 60, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 48px rgba(239, 35, 60, 0.6);
+            }
+        }
+
+        .shiny-cta2 {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            padding: 1.125rem 2.25rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-align: center;
+            background:
+                linear-gradient(#0a0000, #0a0000) padding-box,
+                conic-gradient(from var(--gradient-angle),
+                    transparent 0%, #dc2626 5%, #ef233c 15%, #dc2626 30%, transparent 40%) border-box;
+            border: 2px solid transparent;
+            box-shadow: inset 0 0 0 1px #1a0505, 0 0 28px rgba(239, 35, 60, 0.2);
+            animation: border-spin2 2.5s linear infinite;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .shiny-cta2:hover {
+            box-shadow: inset 0 0 0 1px #1a0505, 0 0 48px rgba(239, 35, 60, 0.5);
+            animation: border-spin2 2.5s linear infinite, pulse-glow2 2s ease-in-out infinite;
+        }
+
+        .shiny-cta2.lg {
+            padding: 1.375rem 3rem;
+            font-size: 1.05rem;
+        }
+
+        /* Testimonial Carousel */
+        .carousel-wrap {
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .testi-card {
+            min-width: 300px;
+            max-width: 340px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--color-border);
+            padding: 1.75rem;
+        }
+
+        .testi-card .q {
+            font-size: 2.75rem;
+            line-height: 1;
+            color: var(--color-red);
+            font-family: Georgia, serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .testi-card p {
+            font-size: 0.92rem;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .testi-card .name {
+            font-family: Manrope, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .testi-card .role {
+            font-size: 0.75rem;
+            color: var(--color-dim);
+            margin-top: 0.15rem;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 2rem;
+        }
+
+        .cdot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease, width 0.3s ease;
+            padding: 0;
+        }
+
+        .cdot.active {
+            background: var(--color-red);
+            width: 24px;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--color-white);
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: left;
+            padding: 1.25rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-q:hover {
+            color: var(--color-red);
+        }
+
+        .faq-icon {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            border: 1px solid rgba(239, 35, 60, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--color-red);
+            transition: transform 0.3s ease;
+            background: rgba(239, 35, 60, 0.07);
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-a {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding-bottom 0.3s ease;
+            color: var(--color-muted);
+            font-size: 0.92rem;
+            line-height: 1.75;
+            padding-bottom: 0;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 320px;
+            padding-bottom: 1.25rem;
+        }
+
+        /* Section BGs */
+        .bg-sections {
+            position: relative;
+            background: #000;
+            z-index: 15;
+        }
+
+        @media (max-width: 720px) {
+            .ds-section {
+                padding: 3.5rem 1.25rem;
+            }
+
+            .shiny-cta2.lg {
+                padding: 1.125rem 1.75rem;
+                font-size: 0.92rem;
+            }
+
+            .day-cards2 {
+                flex-direction: column;
+            }
+
+            .for-grid2 {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -338,10 +841,467 @@
 
         </div>
 
-        <!-- Buffer Section for scroll -->
-        <div class="scroll-buffer"></div>
-
     </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTIONS 2-10 (Solid black background, above video)
+    ══════════════════════════════════════════════ -->
+    <div class="bg-sections">
+
+        <!-- ══════════════════════════════════════════════
+             2ª DOBRA — DEPOIMENTOS
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section wide animate-on-scroll">
+            <div class="ds-section-title">Depoimentos</div>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;margin-bottom:0.75rem;line-height:1.15;">
+                Profissionais que estavam instáveis<br>e hoje operam com clareza
+            </h2>
+            <p style="color:var(--color-muted);margin-bottom:2.5rem;font-size:0.95rem;">
+                Sobre organização, entendimento do erro estrutural e aumento de previsibilidade.
+            </p>
+
+            <div class="carousel-wrap">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="testi-card">
+                        <div class="q">"</div>
+                        <p>Finalmente entendi por que meu faturamento oscilava tanto. Não era falta de esforço — era
+                            falta de estrutura. Depois que organizei minha jornada de compra, tudo mudou.</p>
+                        <div class="name">Mariana C.</div>
+                        <div class="role">Consultora de Marketing</div>
+                    </div>
+                    <div class="testi-card">
+                        <div class="q">"</div>
+                        <p>Antes eu não sabia por que fechava ou por que perdia cliente. Hoje tenho clareza do gargalo e
+                            consigo repetir resultado mês a mês. A previsibilidade chegou.</p>
+                        <div class="name">Ricardo F.</div>
+                        <div class="role">Gestor de Tráfego</div>
+                    </div>
+                    <div class="testi-card">
+                        <div class="q">"</div>
+                        <p>Achei que precisava de mais ferramentas. Na verdade, precisava organizar o que já tinha. O
+                            diagnóstico estrutural me abriu os olhos para onde estava errando.</p>
+                        <div class="name">Aline M.</div>
+                        <div class="role">Designer Freelancer</div>
+                    </div>
+                    <div class="testi-card">
+                        <div class="q">"</div>
+                        <p>Saí do evento com um plano concreto de 30 dias. Não era teoria — era o meu negócio, meu
+                            gargalo, minha solução. Executei e os resultados vieram.</p>
+                        <div class="name">Paulo R.</div>
+                        <div class="role">Copywriter</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-dots" id="carouselDots">
+                <button class="cdot active" data-i="0"></button>
+                <button class="cdot" data-i="1"></button>
+                <button class="cdot" data-i="2"></button>
+                <button class="cdot" data-i="3"></button>
+            </div>
+
+            <p
+                style="text-align:center;margin-top:2.5rem;font-family:Manrope,sans-serif;font-size:1.05rem;font-weight:600;color:rgba(255,255,255,0.78);">
+                É possível — e <span style="color:var(--color-red);">você também pode conseguir!</span>
+            </p>
+            <p style="color:var(--color-muted);text-align:center;margin-top:0.5rem;font-size:0.9rem;">Entenda como…</p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             3ª DOBRA — O PROBLEMA REAL
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll">
+            <div class="ds-section-title">O Problema Real Que Você Não Está Vendo</div>
+            <p style="color:var(--color-muted);margin-bottom:2rem;font-size:1rem;line-height:1.7;">
+                Acredite, a parte mais difícil não é fechar clientes.
+            </p>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;margin-bottom:1.5rem;line-height:1.15;">
+                O problema é que você:</h2>
+            <ul class="x-list2" style="margin-bottom:2.5rem;">
+                <li>Não sabe exatamente por que fechou</li>
+                <li>Não sabe como repetir</li>
+                <li>Vive dependendo de indicação</li>
+                <li>Tem meses bons e meses fracos</li>
+                <li>Trabalha muito, mas sente insegurança</li>
+            </ul>
+            <div class="bracket-card">
+                <div class="bc tl"></div>
+                <div class="bc tr"></div>
+                <div class="bc bl"></div>
+                <div class="bc br"></div>
+                <p
+                    style="font-family:Manrope,sans-serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.5;margin-bottom:1rem;">
+                    Isso não é falta de esforço.
+                    <span style="color:var(--color-red);">É falta de organização da jornada de compra.</span>
+                </p>
+                <p style="color:var(--color-muted);font-size:0.95rem;line-height:1.75;">
+                    Enquanto você não organizar o caminho que o cliente percorre até decidir comprar, continuará preso
+                    na instabilidade.
+                </p>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             4ª DOBRA — A GRANDE OPORTUNIDADE
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll"
+            style="background:radial-gradient(ellipse 60% 80% at 20% 50%, rgba(239,35,60,0.05) 0%, transparent 65%);">
+            <div class="ds-section-title">A Grande Oportunidade</div>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;margin-bottom:2rem;line-height:1.15;">
+                Imagine saber exatamente:</h2>
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:2.5rem;">
+                <div class="ds-card" style="text-align:center;">
+                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">📍</div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde seu cliente <strong>entra</strong>
+                    </p>
+                </div>
+                <div class="ds-card" style="text-align:center;">
+                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">🤝</div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde ele <strong>cria confiança</strong>
+                    </p>
+                </div>
+                <div class="ds-card" style="text-align:center;">
+                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">🚧</div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">Onde ele <strong>trava</strong></p>
+                </div>
+                <div class="ds-card" style="text-align:center;">
+                    <div style="font-size:1.6rem;margin-bottom:0.75rem;">✅</div>
+                    <p style="font-size:0.92rem;color:rgba(255,255,255,0.8);">O que faz ele <strong>decidir</strong></p>
+                </div>
+            </div>
+            <div style="border-left:2px solid var(--color-red);padding-left:1.5rem;margin-bottom:2rem;">
+                <p
+                    style="font-family:Manrope,sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">
+                    Imagine ter clareza suficiente para repetir resultado.</p>
+                <p style="color:var(--color-muted);">Previsibilidade não é talento. É estrutura.</p>
+            </div>
+            <p style="font-family:Manrope,sans-serif;font-size:1.1rem;font-weight:600;color:rgba(255,255,255,0.88);">E
+                eu estou pronto para ensinar você a conquistar isso!</p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             5ª DOBRA — O QUE VOCÊ VAI FAZER NOS 2 DIAS
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll">
+            <div class="ds-section-title">O Que Você Vai Fazer nos 2 Dias</div>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;margin-bottom:2.5rem;line-height:1.15;">
+                Dois dias. Dois blocos. Uma transformação.</h2>
+            <div class="day-cards2" style="display:flex;gap:1.5rem;margin-bottom:2.5rem;">
+                <!-- Sábado -->
+                <div class="day-card2">
+                    <div class="day-label2">Sábado — Dia 01</div>
+                    <h3 style="font-family:Manrope,sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">
+                        Diagnóstico Estrutural</h3>
+                    <p style="color:var(--color-muted);font-size:0.85rem;margin-bottom:1.25rem;">Você vai aprender a:
+                    </p>
+                    <ul class="check-list2" style="margin-bottom:1.75rem;">
+                        <li>Mapear sua jornada real de compra</li>
+                        <li>Identificar seu principal gargalo</li>
+                        <li>Entender por que não consegue repetir resultado</li>
+                    </ul>
+                    <div
+                        style="background:rgba(239,35,60,0.08);border:1px solid rgba(239,35,60,0.2);padding:0.85rem 1rem;">
+                        <p
+                            style="font-size:0.72rem;font-weight:700;color:var(--color-red);text-transform:uppercase;letter-spacing:0.1em;">
+                            Entrega do dia</p>
+                        <p style="font-size:0.85rem;color:rgba(255,255,255,0.65);margin-top:0.25rem;">Você sai com o
+                            mapa da sua jornada preenchido.</p>
+                    </div>
+                </div>
+                <!-- Domingo -->
+                <div class="day-card2">
+                    <div class="day-label2">Domingo — Dia 02</div>
+                    <h3 style="font-family:Manrope,sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">
+                        Plano de Organização</h3>
+                    <p style="color:var(--color-muted);font-size:0.85rem;margin-bottom:1.25rem;">Você vai:</p>
+                    <ul class="check-list2" style="margin-bottom:1.75rem;">
+                        <li>Entender os 3 erros estruturais mais comuns</li>
+                        <li>Reorganizar aquisição e conversão</li>
+                        <li>Definir um plano de 30 dias claro e executável</li>
+                    </ul>
+                    <div
+                        style="background:rgba(239,35,60,0.08);border:1px solid rgba(239,35,60,0.2);padding:0.85rem 1rem;">
+                        <p
+                            style="font-size:0.72rem;font-weight:700;color:var(--color-red);text-transform:uppercase;letter-spacing:0.1em;">
+                            Entrega do dia</p>
+                        <p style="font-size:0.85rem;color:rgba(255,255,255,0.65);margin-top:0.25rem;">Plano executável,
+                            prioridades definidas e direção clara.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Resultados finais -->
+            <div class="bracket-card animate-on-scroll">
+                <div class="bc tl"></div>
+                <div class="bc tr"></div>
+                <div class="bc bl"></div>
+                <div class="bc br"></div>
+                <p
+                    style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-red);margin-bottom:1.25rem;">
+                    Ou seja, você sai com:</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.65rem;">
+                    <div
+                        style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;color:rgba(255,255,255,0.8);">
+                        <span style="color:var(--color-red);font-weight:700;">→</span> Plano estruturado
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;color:rgba(255,255,255,0.8);">
+                        <span style="color:var(--color-red);font-weight:700;">→</span> Prioridades definidas
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;color:rgba(255,255,255,0.8);">
+                        <span style="color:var(--color-red);font-weight:700;">→</span> Diagnóstico objetivo
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;color:rgba(255,255,255,0.8);">
+                        <span style="color:var(--color-red);font-weight:700;">→</span> Gargalos identificados
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;color:rgba(255,255,255,0.8);">
+                        <span style="color:var(--color-red);font-weight:700;">→</span> Plano de ação definido
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:0.5rem;font-size:0.9rem;color:rgba(255,255,255,0.8);">
+                        <span style="color:var(--color-red);font-weight:700;">→</span> Direção estratégica clara
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             6ª DOBRA — PARA QUEM É
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll">
+            <div class="ds-section-title">Para Quem É o Workshop</div>
+            <div class="for-grid2" style="display:flex;gap:2rem;align-items:flex-start;">
+                <!-- Para quem É -->
+                <div style="flex:1;min-width:240px;">
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;">
+                        <div
+                            style="width:30px;height:30px;background:rgba(239,35,60,0.12);border:1px solid rgba(239,35,60,0.4);display:flex;align-items:center;justify-content:center;">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef233c"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        <h3
+                            style="font-family:Manrope,sans-serif;font-size:0.95rem;color:var(--color-red);font-weight:700;">
+                            Para profissionais que:</h3>
+                    </div>
+                    <ul class="check-list2">
+                        <li>Já conseguem vender</li>
+                        <li>Querem previsibilidade</li>
+                        <li>Estão cansados da instabilidade</li>
+                        <li>Estão dispostos a organizar sua operação</li>
+                    </ul>
+                </div>
+                <!-- VS Divider -->
+                <div style="display:flex;flex-direction:column;align-items:center;padding:0 0.5rem;min-height:200px;">
+                    <div
+                        style="flex:1;width:1px;background:linear-gradient(to bottom,transparent,var(--color-border));">
+                    </div>
+                    <span
+                        style="font-size:0.65rem;color:var(--color-dim);text-transform:uppercase;letter-spacing:0.1em;padding:0.4rem 0;writing-mode:vertical-rl;">vs</span>
+                    <div style="flex:1;width:1px;background:linear-gradient(to top,transparent,var(--color-border));">
+                    </div>
+                </div>
+                <!-- Para quem NÃO é -->
+                <div style="flex:1;min-width:240px;">
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;">
+                        <div
+                            style="width:30px;height:30px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#71717a"
+                                stroke-width="2.5" stroke-linecap="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </div>
+                        <h3
+                            style="font-family:Manrope,sans-serif;font-size:0.95rem;color:var(--color-dim);font-weight:700;">
+                            Para quem não é:</h3>
+                    </div>
+                    <ul class="x-list2">
+                        <li>Nunca vendeu</li>
+                        <li>Quer fórmula mágica</li>
+                        <li>Procura ferramenta pronta</li>
+                        <li>Não quer revisar processo</li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="margin-top:2.5rem;padding:1.25rem 1.5rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(255,255,255,0.1);">
+                <p style="font-size:0.92rem;color:var(--color-muted);line-height:1.7;font-style:italic;">
+                    Se você busca atalho, hack, fórmula milagrosa… Sinto muito, mas este evento não é para você!
+                </p>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             7ª DOBRA — CUSTO DA INSTABILIDADE
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll" style="text-align:center;">
+            <div class="ds-section-title centered">O Custo da Instabilidade</div>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;max-width:600px;margin:0 auto 1.5rem;line-height:1.25;">
+                Quanto custa continuar vivendo mês a mês sem saber de onde virá o próximo cliente?
+            </h2>
+            <div style="max-width:520px;margin:0 auto 2.5rem;">
+                <p style="color:var(--color-muted);line-height:1.75;">
+                    A chamada para garantir o seu ingresso no workshop é
+                    <strong style="color:#fff;">meramente simbólica</strong>.<br><br>
+                    Mas, a sua desorganização e a instabilidade <span style="color:var(--color-red);"><strong>não
+                            são!</strong></span>
+                </p>
+            </div>
+            <div style="display:inline-block;">
+                <div class="price-box">
+                    <div class="price-label">Sua vaga por apenas</div>
+                    <div class="price-value"><em>R$</em> 44</div>
+                    <div class="price-install">à vista — ou em até 5x de R$ 9,99</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             8ª DOBRA — SOBRE O PROFESSOR
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll">
+            <div class="ds-section-title">Quem Será o Seu Professor</div>
+            <div style="display:flex;gap:2.5rem;align-items:flex-start;flex-wrap:wrap;">
+                <!-- Bio (Left Side) -->
+                <div style="flex:1;min-width:240px;">
+                    <div style="background:rgba(239,35,60,0.06);border:1px solid rgba(239,35,60,0.18);padding:1.75rem;">
+                        <p
+                            style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--color-red);margin-bottom:1rem;">
+                            Posicionamento estrat&#233;gico</p>
+                        <p style="color:var(--color-muted);font-size:0.95rem;line-height:1.75;">
+                            Especialista em estruturar opera&#231;&#245;es comerciais com foco em previsibilidade e
+                            resultados
+                            concretos. Com anos de experi&#234;ncia ajudando profissionais a sa&#237;rem da
+                            instabilidade e
+                            conquistarem const&#226;ncia no faturamento.<br><br>
+                            <em style="color:var(--color-dim);">Adicione aqui seu bio, experi&#234;ncias relevantes e
+                                cases de resultado.</em>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Professor Photo (Right Side) DS15 Bracket Card style -->
+                <div
+                    style="flex-shrink:0;width:220px;position:relative;padding:3px;border:1px dashed rgba(239,35,60,0.35);background:#000;">
+                    <!-- DS15 Corner accents -->
+                    <div
+                        style="position:absolute;top:-1px;left:-1px;width:14px;height:14px;border-top:2px solid #ef233c;border-left:2px solid #ef233c;z-index:2;">
+                    </div>
+                    <div
+                        style="position:absolute;top:-1px;right:-1px;width:14px;height:14px;border-top:2px solid #ef233c;border-right:2px solid #ef233c;z-index:2;">
+                    </div>
+                    <div
+                        style="position:absolute;bottom:-1px;left:-1px;width:14px;height:14px;border-bottom:2px solid #ef233c;border-left:2px solid #ef233c;z-index:2;">
+                    </div>
+                    <div
+                        style="position:absolute;bottom:-1px;right:-1px;width:14px;height:14px;border-bottom:2px solid #ef233c;border-right:2px solid #ef233c;z-index:2;">
+                    </div>
+                    <!-- Photo -->
+                    <div style="position:relative;overflow:hidden;line-height:0;">
+                        <img src="assets/raw.files/foto 05.jpg" alt="Professor"
+                            style="width:100%;height:290px;object-fit:cover;object-position:center top;display:block;filter:grayscale(15%) contrast(1.05);">
+                        <!-- Subtle red gradient overlay DS15 -->
+                        <div
+                            style="position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,rgba(239,35,60,0.18),transparent);pointer-events:none;">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             9ª DOBRA — FAQ
+        ══════════════════════════════════════════════ -->
+        <section class="ds-section animate-on-scroll">
+            <div class="ds-section-title">Perguntas Frequentes</div>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;margin-bottom:2.5rem;line-height:1.15;">
+                Tire suas dúvidas</h2>
+            <div id="faqList">
+                <div class="faq-item open">
+                    <button class="faq-q">O workshop é mais um "eventinho" para vender curso?<span
+                            class="faq-icon">+</span></button>
+                    <div class="faq-a">Eu vou vender para você no final — não tenho porque esconder isso. Mas, eu
+                        garanto que não é só teoria. Você sairá com um diagnóstico claro e um plano estruturado para o
+                        seu negócio. Eu garanto!</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">Isso é só teoria?<span class="faq-icon">+</span></button>
+                    <div class="faq-a">Não. Cada bloco tem uma entrega concreta: no sábado você preenche o mapa da sua
+                        jornada de compra; no domingo você define seu plano de ação de 30 dias. Saída prática garantida.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">Eu ainda sou pequeno, serve para mim?<span class="faq-icon">+</span></button>
+                    <div class="faq-a">Se você já vendeu, sim. Se nunca vendeu, talvez não seja o momento mais
+                        apropriado para você participar.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">Preciso fazer tráfego pago?<span class="faq-icon">+</span></button>
+                    <div class="faq-a">Não. Você não precisa fazer ou estar fazendo tráfego pago para performar com o
+                        que vou te ensinar nos dois dias.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">Vai ter gravação?<span class="faq-icon">+</span></button>
+                    <div class="faq-a">[Definir regra] — adicione aqui sua política de gravação e reaproveitamento do
+                        conteúdo.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">É muito avançado?<span class="faq-icon">+</span></button>
+                    <div class="faq-a">Apesar do conteúdo nos dois dias ser muito profundo, é perfeitamente aplicável em
+                        qualquer realidade — do básico ao mais especializado possível.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════
+             10ª DOBRA — CTA FINAL
+        ══════════════════════════════════════════════ -->
+        <section id="cta-final" class="ds-section animate-on-scroll"
+            style="text-align:center;border-bottom:none;background:radial-gradient(ellipse 80% 70% at 50% 100%,rgba(239,35,60,0.1) 0%,transparent 65%);">
+            <div class="ds-section-title centered">Garanta Sua Vaga</div>
+            <h2
+                style="font-family:Manrope,sans-serif;font-size:clamp(1.65rem,3.5vw,2.6rem);font-weight:700;max-width:580px;margin:0 auto 1.25rem;line-height:1.25;">
+                Se você quer parar de depender da sorte e organizar sua operação com clareza estrutural,
+                <span style="color:var(--color-red);">este é o momento.</span>
+            </h2>
+            <div style="margin:2rem auto 2rem;display:inline-block;">
+                <div class="price-box">
+                    <div class="price-label">Investimento total</div>
+                    <div class="price-value"><em>R$</em> 44</div>
+                    <div class="price-install">à vista — ou em até 5x de R$ 9,99</div>
+                </div>
+            </div>
+            <br>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.6rem;margin-bottom:2rem;">
+                <span class="ds-tag">7 e 8 de Março</span>
+                <span class="ds-tag">Evento ao Vivo</span>
+                <span class="ds-tag">12 horas intensivas</span>
+            </div>
+            <a href="#" class="shiny-cta2 lg">Quero Garantir a Minha Vaga Agora</a>
+            <p style="margin-top:1.5rem;font-size:0.78rem;color:var(--color-dim);">Vagas limitadas &nbsp;·&nbsp;
+                Pagamento 100% seguro &nbsp;·&nbsp; Acesso imediato</p>
+        </section>
+
+        <!-- Footer -->
+        <footer style="padding:2rem 1.5rem;border-top:1px solid var(--color-border);text-align:center;">
+            <p style="font-size:0.72rem;color:var(--color-dim);">© 2025 · Workshop Venda com Clareza Estrutural · 7 e 8
+                de Março</p>
+        </footer>
+
+    </div><!-- /.bg-sections -->
+
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -409,51 +1369,125 @@
 
             // =============================================
             // 3. PARALLAX DO VÍDEO (Scrubbing pelo Scroll + Eixo Y)
-            //    Vídeo avança apenas quando usuário rola a tela
             // =============================================
+
+            // Define o tamanho exato da página inteira para o cálculo do Parallax e do tempo do vídeo
+            var scrollDuration = document.body.scrollHeight + "px";
 
             // Movimento Espacial no Eixo Y (suaviza a profundidade)
             var yTween = gsap.to("#video-wrapper", { y: "40%", ease: "none" });
             new ScrollMagic.Scene({
                 triggerElement: "body",
                 triggerHook: 0,
-                duration: "250%"
+                duration: scrollDuration
             })
                 .setTween(yTween)
                 .addTo(controller);
 
-            // Sincroniza o tempo do vídeo (Scrubbing progressivo) com o Scroll da mouse
+            // Sincroniza o tempo do vídeo com o Scroll da mouse (Scrubbing progressivo real)
             var video = document.getElementById("bg-video");
 
-            // Pausa imediatamente evitando o rolar sem scroll
+            // Pausa imediatamente
             video.pause();
 
             function initVideoScrub() {
-                var duration = video.duration || 10; // Fallback garantido
-
+                // Ao rolar, altera o tempo atual do vídeo para frente e para trás
+                var duration = video.duration || 10;
                 var videoTween = gsap.to(video, {
                     currentTime: duration,
-                    ease: "power2.out" // Desacelera suavemente quando para de rolar
+                    ease: "none" // easing NONE é fundamental para o scrub seguir o mouse perfeitamente 1:1 sem engasgar
                 });
 
                 new ScrollMagic.Scene({
                     triggerElement: "body",
                     triggerHook: 0,
-                    duration: "400%" // Quantidade de scroll pro curso do vídeo
+                    duration: scrollDuration // Atrela exatamente do topo ao fim do scroll da página
                 })
                     .setTween(videoTween)
                     .addTo(controller);
             }
 
-            // Garante que a duração está contada antes de registrar a Scene e engasgar a leitura
-            if (video.readyState >= 1) {
+            // Exige carregar os meta-dados reais do vídeo para o cálculo longo não ficar "incompleto"
+            if (video.readyState >= 1 && video.duration > 0) {
                 initVideoScrub();
             } else {
                 video.addEventListener("loadedmetadata", initVideoScrub);
             }
-
         });
     </script>
+
+    <!-- IntersectionObserver for sections 2-10 scroll animations -->
+    <script>
+        (function () {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('out-view');
+                        entry.target.classList.add('in-view');
+                    } else {
+                        // Fade out linearly mimicking DS15 structure but bidirectionally
+                        entry.target.classList.remove('in-view');
+                        entry.target.classList.add('out-view');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -5% 0px"
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
+                observer.observe(el);
+            });
+        })();
+    </script>
+
+    <!-- Carousel -->
+    <script>
+        (function () {
+            var track = document.getElementById('carouselTrack');
+            var dots = document.querySelectorAll('#carouselDots .cdot');
+            if (!track) return;
+
+            var cards = track.querySelectorAll('.testi-card');
+            var current = 0;
+
+            function goTo(i) {
+                current = (i + cards.length) % cards.length;
+                var cardW = cards[0].offsetWidth + 24; // 24px gap
+                track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+                dots.forEach(function (d, idx) {
+                    d.classList.toggle('active', idx === current);
+                });
+            }
+
+            dots.forEach(function (dot) {
+                dot.addEventListener('click', function () { goTo(parseInt(this.dataset.i, 10)); });
+            });
+
+            // Auto-advance every 4 seconds
+            setInterval(function () { goTo(current + 1); }, 4000);
+        })();
+    </script>
+
+    <!-- FAQ Accordion -->
+    <script>
+        (function () {
+            document.querySelectorAll('.faq-q').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var item = this.closest('.faq-item');
+                    var isOpen = item.classList.contains('open');
+                    // Close all
+                    document.querySelectorAll('.faq-item').forEach(function (el) {
+                        el.classList.remove('open');
+                    });
+                    // Toggle this one
+                    if (!isOpen) item.classList.add('open');
+                });
+            });
+        })();
+    </script>
+
 </body>
 
 </html>
+```
