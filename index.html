@@ -42,12 +42,25 @@
             box-sizing: border-box;
         }
 
+        html {
+            background-color: #000000;
+        }
+
         body {
             background: #000000;
             color: #ffffff;
             font-family: 'Manrope', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Impede vazamento do video no overscroll inferior sem aumentar barra de rolagem */
+        .bg-sections {
+            background-color: #000000;
+            position: relative;
+            z-index: 10;
+            padding-bottom: 50vh;
+            margin-bottom: -50vh;
         }
 
         /* Initial state for animated elements */
@@ -1343,39 +1356,25 @@
             // =============================================
             // 2. SCROLL-SYNCED ANIMATIONS (Fade Out / Blur Out)
             // =============================================
-            heroElements.forEach(function (el) {
+            setTimeout(function () {
+                heroElements.forEach(function (el) {
 
-                // ENTER scene: fading and blur clearing from bottom
-                var enterTween = gsap.fromTo(el,
-                    { opacity: 0, filter: "blur(10px)", y: 40 },
-                    { opacity: 1, filter: "blur(0px)", y: 0, ease: "power2.out" }
-                );
+                    // EXIT scene: fading out and blurring out towards top
+                    var exitTween = gsap.fromTo(el,
+                        { opacity: 1, filter: "blur(0px)", y: 0 },
+                        { opacity: 0, filter: "blur(10px)", y: -40, ease: "power2.in" }
+                    );
 
-                new ScrollMagic.Scene({
-                    triggerElement: el,
-                    triggerHook: 0.9,
-                    duration: "25%",
-                    reverse: true
-                })
-                    .setTween(enterTween)
-                    .addTo(controller);
-
-                // EXIT scene: fading out and blurring out towards top
-                // Fades Opacity to 0, blurs back to 10px smoothly
-                var exitTween = gsap.fromTo(el,
-                    { opacity: 1, filter: "blur(0px)", y: 0 },
-                    { opacity: 0, filter: "blur(10px)", y: -40, ease: "power2.in" }
-                );
-
-                new ScrollMagic.Scene({
-                    triggerElement: el,
-                    triggerHook: 0.15,
-                    duration: "20%",
-                    reverse: true
-                })
-                    .setTween(exitTween)
-                    .addTo(controller);
-            });
+                    new ScrollMagic.Scene({
+                        triggerElement: el,
+                        triggerHook: 0.15,
+                        duration: "20%",
+                        reverse: true
+                    })
+                        .setTween(exitTween)
+                        .addTo(controller);
+                });
+            }, 2500);
 
             // =============================================
             // 3. PARALLAX DO VÍDEO (Scrubbing pelo Scroll + Eixo Y)
